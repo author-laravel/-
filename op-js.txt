@@ -1,0 +1,91 @@
+<html>
+<head>
+<meta http-equiv="author" content="Mr. Quixter"/>
+<title>
+::::OJS Auto Exploit::::
+</title>
+</head>
+<body bgcolor=black>
+<p align=center>
+<img src="https://i.ibb.co.com/JRtr3my/images.png" width="350" height="200"alt="OJS Auto Exploit"/></p>
+<p align="center"><font color="c0c0c0" size="5">Ojs Auto Exploit</font></p><br>
+<p align="center"><font color="c0c0c0" size="2">Akurasi dari tools ini adalah sekitar 90-95%. <br> jadi mohon maaf apabila terdapat kendala atau kesalahan saat menjalankan tools ini</font></p>
+<form method="POST" action="<?php $PHP_SELF; ?>">
+<p align="center"><font color="c0c0c0">Masukkan Target : </font><br>
+<input type="text" name="url" value="http://"/>
+<br>
+<input type="submit" name="submit" value="Perkosa"/>
+</p>
+<br>
+<br>
+<?php
+//This code was created by The Alchemist
+function xss_protect($data, $strip_tags = false, $allowed_tags = "") { 
+    if($strip_tags) {
+  $data = strip_tags($data, $allowed_tags . "<b>");
+    }
+
+    if(stripos($data, "script") !== false) { 
+  $result = str_replace("script","scr<b></b>ipt", htmlentities($data, ENT_QUOTES)); 
+    } else { 
+  $result = htmlentities($data, ENT_QUOTES); 
+    } 
+
+    return $result;
+}
+function urlExist($url)
+{
+    $handle   = curl_init($url);
+    if (false === $handle)
+    {
+    return false;
+    }
+    curl_setopt($handle, CURLOPT_HEADER, false);
+    curl_setopt($handle, CURLOPT_FAILONERROR, true);
+    curl_setopt($handle, CURLOPT_HTTPHEADER, Array("User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.15) Gecko/20080623 Firefox/2.0.0.15") ); // request as if Firefox
+    curl_setopt($handle, CURLOPT_NOBODY, true);
+    curl_setopt($handle, CURLOPT_RETURNTRANSFER, false);
+    $connectable = curl_exec($handle);
+    curl_close($handle);
+    return $connectable;
+}
+    if(isset($_POST['submit']) && isset($_POST['url']))
+    {
+  $url= htmlentities(xss_protect($_POST['url']));
+  if(filter_var($url, FILTER_VALIDATE_URL))
+  {
+    $trying = array('ojs/','ojsdata/','dataojs/','data/','asset/','assets/','assetsojs/','datajurnal/',
+    'repository/','journal/','jurnal/','journals/','file/','files/','date/','library/','artikel/','articles/','submission/','artikels/','files/journal/','files/journals');
+    foreach($trying as $sec)
+    {
+    $urll=$url.'/'.$sec;
+    if(urlExist($urll))
+    {
+    echo '<p align="center"><font color="00FF00">'.$urll.' berhasil.<br>Dirrectory Ditemukan!!</font></p>';
+    exit;
+    }
+    else
+    {
+    echo '<p align="center"><font color="d69fcf">'.$urll.' Tidak Ditemukan!!.</font></p>';
+    }   
+    }
+    echo '<p align="center"><font color="c0c0c0" size="5">Tidak dapat menemukan dirr yang dicari.</font></p>';
+  }
+  else
+  {
+    echo '<p align="center"><font color="c0c0c0" size="5">URL tidak valid.</font></p>';    
+  }
+    }
+?>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br><br><br><br>
+<center><i class="fa fa-copyright" aria-hidden="true"></i><font color="#E0F59F" size="2"><p class="footer1">©Mr. Quixter</p></font></center>
+<br>
+</body>
+</html>
