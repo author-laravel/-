@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Subdo Scanner Mr. Quixter</title>
+  </head>
+  <body>
+<body bgcolor="grey">
+  <center>
+<font size="2"font color="cyan">
+    
+    <img src="https://i.ibb.co.com/JRtr3my/images.png" width="350" height="200"alt="Subdomain Scanner Mr. Quixter"/></p>
+    <h1>Mr. Quixter <br> Subdomain Sacnner</h1> 
+
+	
+    <input type="text" placeholder="mr-quixter.blogspot.com" id="target">
+	
+    <button type="button" onclick="eksekusi();">Scan</button>
+	<font size="2"font color="lime">
+    <h2>Result :</h2>
+	
+	<p id="demo"></p>
+ 
+ <script>
+      function eksekusi() {
+     
+        var inputVal = document.getElementById("target").value;
+
+
+        var anuan = inputVal;
+
+        
+		var url = "https://api.hackertarget.com/hostsearch/?q";
+
+        var requestOptions = {
+          method: 'GET',
+          redirect: 'follow'
+
+        };
+		
+        fetch(url + '=' + anuan, requestOptions)
+          .then(response => response.text())
+          
+          .then(result => document.getElementById("demo").innerText =
+            (result))
+          .catch(error => console.log('error', error));  
+      }
+    </script>
+
+  </body>
+</html>
